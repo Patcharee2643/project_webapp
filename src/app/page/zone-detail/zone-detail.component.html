@@ -1,0 +1,222 @@
+<img src="assets/image/2024.jpg" alt="คำอธิบายรูปภาพ" class="image-class" />
+<div class="zone-center">
+  <div class="zone-container">
+    <div class="zone-card" *ngFor="let zone of zones">
+      <h3><strong>ชื่อโซน:</strong> {{ zone.zone_name }}</h3>
+      <p><strong>รหัสโซน:</strong> {{ zone.zone_id }}</p>
+      <p><strong>รายละเอียด:</strong> {{ zone.zone_description }}</p>
+      <p><strong>จำนวนบูธโซน:</strong> {{ zone.total_booths }} บูธ</p>
+      <button class="details-button" (click)="showBooths(zone.zone_id)">
+        ดูรายละเอียด
+      </button>
+    </div>
+  </div>
+
+  <div
+    *ngIf="isBoothContainerVisible"
+    class="booth-overlay"
+    (click)="hideBooths()"
+  >
+    <div class="booth-container" (click)="$event.stopPropagation()">
+      <div *ngIf="booths.length === 0" class="no-booths-message">
+        ไม่มีบูธในโซนนี้
+      </div>
+
+      <div class="booth-card" *ngFor="let booth of booths">
+        <div class="booth-content">
+          <!-- รูปภาพบูธที่ดึงจากฐานข้อมูล -->
+          <img [src]="booth.image_url" alt="Booth Image" class="booth-image" />
+          <div class="booth-text">
+            <h4>ชื่อบูธ: {{ booth.booth_name }}</h4>
+            <p>รหัสบูธ: {{ booth.booth_id }}</p>
+            <p>ขนาดบูธ: {{ booth.booth_size }}</p>
+            <p>สถานะ: {{ booth.status }}</p>
+            <p>ราคา: {{ booth.price }} บาท</p>
+            <button
+              class="details-button"
+              (click)="bookBooth(booth.booth_id, booth.booth_name)"
+            >
+              จองเลย
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="showConfirmDialog"
+  style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 1000;
+  "
+  class="mess-overlay"
+>
+  <h3 style="margin: 0 0 15px; font-size: 1.5em; color: #333">
+    ยืนยันการจองบูธ
+  </h3>
+  <p style="font-size: 1em; color: #666">คุณต้องการจองบูธนี้หรือไม่?</p>
+
+  <div
+    style="display: flex; justify-content: center; gap: 10px; margin-top: 20px"
+  >
+    <button
+      (click)="goToBooking()"
+      style="
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+      "
+    >
+      ยืนยัน
+    </button>
+    <button
+      (click)="showConfirmDialog = false"
+      style="
+        background-color: #f44336;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+      "
+    >
+      ยกเลิก
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="showNotDialog"
+  style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 1000;
+  "
+  class="mess-overlay"
+>
+  <h3 style="margin: 0 0 15px; font-size: 1.5em; color: #333">
+    ไม่สามารถจองบูธได้
+  </h3>
+
+  <div
+    style="display: flex; justify-content: center; gap: 10px; margin-top: 20px"
+  >
+    <button
+      (click)="ToNotbook()"
+      style="
+        background-color: #6e8efb;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+      "
+    >
+      ตกลง
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="showLoginDialog"
+  style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 1000;
+  "
+  class="mess-overlay"
+>
+  <h3 style="margin: 0 0 15px; font-size: 1.5em; color: #333">
+    กรุณาเข้าสู่ระบบ
+  </h3>
+  <p style="font-size: 1em; color: #666">
+    คุณต้องเข้าสู่ระบบก่อนจึงจะสามารถจองบูธได้
+  </p>
+  <div
+    style="display: flex; justify-content: center; gap: 10px; margin-top: 20px"
+  >
+    <button
+      (click)="goToLogin()"
+      style="
+        background-color: #6e8efb;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+      "
+    >
+      เข้าสู่ระบบ
+    </button>
+    <button
+      (click)="showLoginDialog = false"
+      style="
+        background-color: #f44336;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease;
+      "
+    >
+      ยกเลิก
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showMaxNotDialog" class="not-dialog">
+  <h2>คุณจองครบ 4 บูธแล้ว</h2>
+  <ul>
+    <li *ngFor="let booking of bookedBooths">
+      <p>ชื่อบูธ: {{ booking.booth_name }}</p>
+      <p>สถานะ: {{ booking.status }}</p>
+      <p>วันที่จอง: {{ booking.start_date }} - {{ booking.end_date }}</p>
+    </li>
+  </ul>
+  <button (click)="ToNotbook()">ตกลง</button>
+</div>
+
+

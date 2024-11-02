@@ -1,0 +1,35 @@
+
+<div class="signup-container"> 
+    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        <div class="login-name">
+            <img src="assets/image/add.png" alt="รูปภาพ" class="login-image">
+            <h5 class="login-text">สมัครสมาชิก</h5>
+          </div> 
+      <label for="prefix">คำนำหน้า</label>
+      <select id="prefix" [(ngModel)]="prefix" name="prefix" required>
+        <option value="นาย">นาย</option>
+        <option value="นาง">นาง</option>
+        <option value="นางสาว">นางสาว</option>
+      </select>
+  
+      <label for="first_name">ชื่อ</label>
+      <input type="text" id="first_name" [(ngModel)]="first_name" name="first_name" required>
+  
+      <label for="last_name">นามสกุล</label>
+      <input type="text" id="last_name" [(ngModel)]="last_name" name="last_name" required>
+  
+      <label for="phone">เบอร์โทรศัพท์</label>
+      <input type="text" id="phone" [(ngModel)]="phone" name="phone" pattern="[0-9]{10}" required>
+  
+      <label for="email">อีเมล</label>
+      <input type="email" id="email" [(ngModel)]="email" name="email" required>
+  
+      <label for="password">รหัสผ่าน</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+  
+      <button type="submit" [disabled]="signupForm.invalid">สมัครสมาชิก</button>
+      
+    </form>
+  </div>
+  
+  

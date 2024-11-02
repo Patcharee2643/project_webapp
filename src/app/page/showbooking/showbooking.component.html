@@ -1,0 +1,54 @@
+<div class="profile-container">
+
+    <div class="profile-box">
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+          
+          <div *ngIf="!errorMessage && bookings.length === 0" class="no-bookings">
+            ไม่มีข้อมูลการจอง
+          </div>
+          
+          <div *ngIf="bookings.length > 0">
+            <div class="login-name">
+                <img src="assets/image/booking (1).png" alt="รูปภาพ" class="login-image">
+                <h2>ข้อมูลการจองของคุณ</h2>
+            </div>
+            
+            <div *ngFor="let booking of bookings" class="booking-card">
+                <p><strong>รหัสการจอง:</strong> {{ booking.booking_id}}</p>
+              <p><strong>ชื่อบูธ:</strong> {{ booking.booth_name }}</p>
+              <p><strong>ชื่อโซน:</strong> {{ booking.zone_name}}</p>
+              <p><strong>สถานะ:</strong> {{ booking.status }}</p>
+              
+              <p><strong>ราคา:</strong> {{ booking.price }} บาท</p>
+              <div class="button-group">
+                <button class="cancel-button" (click)="cancelBooking(booking.booth_id)">ยกเลิกการจอง</button>
+                <button class="pay-button" (click)="showPaymentModal(booking.booth_id)">จ่ายเงิน</button>
+            </div>
+            </div>
+            </div>
+           
+
+            
+          </div>
+            <!-- Modal สำหรับอัปโหลดสลิป -->
+            <div *ngIf="isPaymentModalVisible" class="payment-modal">
+                <div class="payment-modal-content">
+                    <h3>อัปโหลดลิงก์สลิปการชำระเงิน</h3>
+                    <input 
+                        type="url" 
+                        placeholder="วางลิงก์รูปภาพสลิปที่นี่" 
+                        [(ngModel)]="paymentSlipLink" 
+                        class="form-control" />
+                    <div class="modal-button-group">
+                        <button class="pay-confirm-button" (click)="confirmPayment()">ยืนยัน</button>
+                        <button class="cancel-button" (click)="hidePaymentModal()">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+    
+    
+   

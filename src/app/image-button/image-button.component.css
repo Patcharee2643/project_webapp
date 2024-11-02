@@ -1,0 +1,106 @@
+/* image-button.component.css */
+.image-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.image-button img {
+    width: 75px; /* ขนาดของภาพ */
+    height: 75px;
+}
+
+.image-button img:hover {
+    opacity: 0.8; /* เอฟเฟกต์เมื่อเอาเมาส์ไปวางบนภาพ */
+}
+
+
+/* app.component.css */
+.navbar {
+    background-color: #12a184; /* สีพื้นหลังของ navbar */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+  
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+  
+    li {
+      margin-right: 15px;
+    }
+  
+    .image-button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: flex; /* จัดเรียงลูกในแนวนอน */
+      align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+  
+      .image {
+        height: 80px;
+        width: 80px;
+        margin-right: 10px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+      }
+    }
+  
+    button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; /* จัดเรียงลูกในแนวนอน */
+      align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+
+      img {
+        height: 30px;
+        width: 30px;
+        margin-right: 10px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+      }
+      
+      a {
+        color: white;
+        text-decoration: none;
+  
+      }
+  
+      
+    }
+  }
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar li {
+    display: inline;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 140%;
+    padding: 1px 1px;
+    display: inline-block;
+}
+.navbar button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+.navbar li:hover {
+    background-color: #038d61;
+    color: white;
+}

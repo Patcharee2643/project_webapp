@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <button class="image-button" (click)="onButtonClick()">
+    <img src="assets/image/logo.jpg" class="image" alt="ปุ่มรูปภาพ" />
+    <h1>ระบบจองบูธงานเกษตรแฟร์</h1>
+  </button>
+  <ul class="nav-left">
+    <li>
+      <button (click)="goToHome()" class="nav-link">
+        <img src="assets/image/home.png" alt="รูปภาพ" />
+        <h3>หน้าหลัก</h3>
+      </button>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <button (click)="toBooking()" class="nav-link">
+        <img src="assets/image/booking.png" alt="รูปภาพ" />
+        <h3>ข้อมูลการจอง</h3>
+      </button>
+    </li>
+    <li *ngIf="!isLoggedIn">
+      <button (click)="goToLogin()" class="nav-link">
+        <img src="assets/image/login.png" alt="รูปภาพ" />
+        <h3>เข้าสู่ระบบ</h3>
+      </button>
+    </li>
+
+    <li *ngIf="isLoggedIn">
+      <button (click)="toProfile()" class="nav-link">
+        <img src="assets/image/profile.png" alt="รูปภาพ" />
+        <h3>ข้อมูลส่วนตัว</h3>
+      </button>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <button (click)="logout()" class="nav-link">
+        <img src="assets/image/logout.png" alt="รูปภาพ" />
+        <h3>ออกจากระบบ</h3>
+      </button>
+    </li>
+
+   
+  </ul>
+</nav>

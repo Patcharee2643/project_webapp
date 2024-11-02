@@ -1,0 +1,36 @@
+<div class="profile-container">
+  <div class="profile-box">
+    <div class="login-name">
+      <img src="assets/image/profile1.png" alt="รูปภาพ" class="login-image">
+      <h5 class="profile-header">ข้อมูลส่วนตัว</h5>
+    </div>
+
+    <div *ngIf="user" class="profile-details">
+      <div class="profile-field" *ngFor="let key of objectKeys(user)">
+        <strong class="field-label">{{ key | titlecase }}:</strong>
+        <span *ngIf="!isEditMode || !isEditableField(key)" class="field-value">{{ user[key] }}</span>
+        <input *ngIf="isEditMode && isEditableField(key)" [(ngModel)]="editableUser[key]" class="form-control" />
+      </div>
+
+      <div *ngIf="isEditMode">
+        <div class="profile-field">
+          <strong class="field-label">New Password:</strong>
+          <input type="password" [(ngModel)]="newPassword" class="form-control" />
+        </div>
+        <div class="profile-field">
+          <strong class="field-label">Confirm Password:</strong>
+          <input type="password" [(ngModel)]="confirmPassword" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <div class="button-group">
+      <button (click)="toggleEditMode()" *ngIf="!isEditMode" class="edit-button">Edit</button>
+      <button (click)="saveChanges()" *ngIf="isEditMode" class="save-button">Save</button>
+      <button (click)="cancelEdit()" *ngIf="isEditMode" class="cancel-button">Cancel</button>
+    </div>
+  </div>
+</div>

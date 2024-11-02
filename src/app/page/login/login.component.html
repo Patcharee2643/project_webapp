@@ -1,0 +1,53 @@
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-name">
+      <img src="assets/image/login1.png" alt="รูปภาพ" class="login-image">
+      <h5 class="login-text">เข้าสู่ระบบ</h5>
+    </div>    
+    <p>Please enter your email and password to continue.</p>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          #emailField="ngModel"
+          class="form-control"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="emailField.invalid && emailField.touched" class="error">
+          Please enter a valid email address.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          minlength="6"
+          #passwordField="ngModel"
+          class="form-control"
+          placeholder="Enter your password"
+        />
+        <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid" class="login-button">Login</button>
+    </form>
+    <br>
+    <button (click)="toSignup()" class="signup-button">SignUp</button>
+
+    <div *ngIf="loginErrorMessage" class="error-message">
+      {{ loginErrorMessage }}
+    </div>
+  </div>
+</div>
