@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="header">
+      <img src="assets/image/user1.png" alt="ยืนยันการจอง" class="header-image" />
+      <h2>ยืนยันการจองบูธ</h2>
+    </div>
+  
+    <p class="info-text">กดปุ่มด้านล่างเพื่อยืนยันการจองบูธที่มีสถานะการชำระเงินแล้ว</p>
+  
+    <button (click)="onConfirmBookings()" class="confirm-button">ยืนยันการจองบูธ</button>
+  
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+  

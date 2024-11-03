@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable, throwError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap  } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -70,17 +70,25 @@ bookBooth(bookingData: any): Observable<any> {
         responseType: 'json' as const // ตรวจสอบให้ตั้งเป็น json
     });
 }
-
+bookBoothAPI(data: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl}/users/book_booth`, data, {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  });
+}
 getUserBookings(email: string, password: string): Observable<any> {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   return this.http.post<any>(`${this.baseUrl}/users/book_data`, { email, password }, { headers })
     .pipe(
+      tap((response: any) => { // ใช้ tap เพื่อดูข้อมูล response โดยไม่แก้ไขข้อมูลที่ส่งออกไป
+        console.log('API response:', response);
+      }),
       catchError(error => {
         console.error('Error fetching user bookings:', error);
-        return throwError(() => error);
+        return throwError(() => error); // ส่งค่า error ให้ subscriber ใช้จัดการ
       })
     );
 }
+
 
 
 
@@ -91,6 +99,49 @@ cancelBooking(boothId: number): Observable<any> {
 
 payForBooking(boothId: number): Observable<any> {
   return this.http.post<any>(`${this.baseUrl}/users/payment`, { boothId });
+}
+
+checkMaxBooking(data: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl}/users/maxbook_booth`, data, {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  });
+}
+
+
+addEvent(eventData: any): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post<any>(`${this.baseUrl}/admin/eventInsert`, eventData, { headers });
+}
+
+getEventDetails(eventId: string): Observable<any> {
+  const payload = { event_id: eventId };
+  return this.http.post<any>(`${this.baseUrl}/admin/event_Update`, payload);
+}
+
+updateEvent(eventData: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl}/admin/event_Update`, eventData);
+}
+
+addZone(zone: any): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post<any>(`${this.baseUrl}/zoneInsert`, zone, { headers });
+}
+getUnpaidUsers(): Observable<any[]> {
+  return this.http.get<any[]>('https://wag16.bowlab.net/admin/show_unpaid_users');
+}
+
+getUsers(): Observable<any[]> {
+  return this.http.get<any[]>('https://wag16.bowlab.net/admin/show_users');
+}
+
+getPaidUsers(): Observable<any[]> {
+  return this.http.get<any[]>('https://wag16.bowlab.net/admin/show_paid_users');
+}
+getPendingUsers(): Observable<any[]> {
+  return this.http.get<any[]>('https://wag16.bowlab.net/admin/show_pending_booth');
+}
+getBookedBooths(): Observable<any[]> {
+  return this.http.get<any[]>('https://wag16.bowlab.net/admin/show_bookings_booth1');
 }
 
 

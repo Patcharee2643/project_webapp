@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="header">
+      <h2>รายชื่อผู้ใช้ที่ชำระเงินแล้ว</h2>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+    <div *ngIf="!errorMessage && paidUsers.length === 0" class="no-data">
+      ไม่มีข้อมูลผู้ใช้ที่ชำระเงินแล้ว
+    </div>
+  
+    <div *ngIf="paidUsers.length > 0" class="paid-user-list">
+      <div *ngFor="let user of paidUsers" class="paid-user-card">
+        <h3>{{ user.prefix }} {{ user.first_name }} {{ user.last_name }}</h3>
+        <p><strong>โทรศัพท์:</strong> {{ user.phone }}</p>
+        <p><strong>อีเมล:</strong> {{ user.email }}</p>
+        <p><strong>ชื่อบูธ:</strong> {{ user.booth_name }}</p>
+        <p><strong>ชื่อโซน:</strong> {{ user.zone_name }}</p>
+      </div>
+    </div>
+  </div>
+  

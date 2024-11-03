@@ -6,7 +6,7 @@
     </div>
 
     <div *ngIf="user" class="profile-details">
-      <div class="profile-field" *ngFor="let key of objectKeys(user)">
+      <div class="profile-field" *ngFor="let key of filteredObjectKeys(user)">
         <strong class="field-label">{{ key | titlecase }}:</strong>
         <span *ngIf="!isEditMode || !isEditableField(key)" class="field-value">{{ user[key] }}</span>
         <input *ngIf="isEditMode && isEditableField(key)" [(ngModel)]="editableUser[key]" class="form-control" />

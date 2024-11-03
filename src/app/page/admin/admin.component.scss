@@ -1,0 +1,285 @@
+/* image-button.component.css */
+.image-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.image-button img {
+    width: 75px; /* ขนาดของภาพ */
+    height: 75px;
+}
+
+.image-button img:hover {
+    opacity: 0.8; /* เอฟเฟกต์เมื่อเอาเมาส์ไปวางบนภาพ */
+}
+
+
+/* app.component.css */
+.navbar {
+    background-color: #12a184; /* สีพื้นหลังของ navbar */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+  
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+  
+    li {
+      margin-right: 15px;
+    }
+  
+    .image-button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: flex; /* จัดเรียงลูกในแนวนอน */
+      align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+  
+      .image {
+        height: 80px;
+        width: 80px;
+        margin-right: 10px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+      }
+    }
+  
+    button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 10px;
+      cursor: pointer;
+      display: flex; /* จัดเรียงลูกในแนวนอน */
+      align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+
+      img {
+        height: 30px;
+        width: 30px;
+        margin-right: 10px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+      }
+      
+      a {
+        color: white;
+        text-decoration: none;
+  
+      }
+  
+      
+    }
+  }
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar li {
+    display: inline;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 140%;
+    padding: 1px 1px;
+    display: inline-block;
+}
+.navbar button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+.navbar li:hover {
+    background-color: #038d61;
+    color: white;
+}
+
+
+.image-class {
+    width: 100%;         /* กำหนดความกว้างของรูปภาพให้เต็มหน้าจอ */
+    max-width: 40%;      /* จำกัดความกว้างสูงสุดของรูปภาพ */
+    height: auto;        /* ปรับความสูงของรูปภาพตามสัดส่วน */
+    display: block;      /* จัดรูปภาพให้แสดงแบบบล็อก */
+    margin: 40px auto 0;     /* จัดรูปภาพให้อยู่ตรงกลาง */
+    
+}
+
+.zone-container {
+    
+    display: flex;
+    flex-wrap: wrap;          /* ให้การ์ดห่อขึ้นบรรทัดใหม่เมื่อพื้นที่เต็ม */
+    gap: 20px;                /* ระยะห่างระหว่างการ์ด */
+    justify-content: flex-start; /* จัดการ์ดให้อยู่ชิดซ้าย */
+    padding: 20px;
+}
+
+.zone-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;             /* กำหนดความกว้างของการ์ด */
+    text-align: left;
+    transition: transform 0.2s ease-in-out;
+}
+.zone-center {
+    padding: 0 50px; 
+   
+}
+
+.zone-card:hover {
+    transform: translateY(-5px);
+}
+
+.details-button {
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+    background-color: #6e8efb;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.details-button:hover {
+    background-color: #5a76d3;
+}
+.booth-container {
+    position: fixed;              /* ใช้ fixed เพื่อให้ container นี้อยู่ในตำแหน่งที่แน่นอน */
+    top: 20%;                     /* ระยะห่างจากด้านบน 10% */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;       /* จัดการ์ดในแนวตั้ง */
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.95); /* พื้นหลังโปร่งแสง */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 5;                   /* ให้ z-index อยู่ระหว่างการ์ดโซนและ nav */
+    max-width: 80%;
+    max-height: 80vh;             /* กำหนดความสูงสูงสุดของ container */
+    overflow-y: auto;             /* ทำให้สามารถเลื่อนดูได้ในแนวตั้ง */
+   
+}
+.booth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* พื้นหลังโปร่งแสงเพื่อให้เน้นการ์ด */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9; /* ให้ต่ำกว่า nav */
+  }
+  
+
+  
+  .booth-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: auto;
+    max-width: 600px;
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    gap: 10px;
+  }
+
+  .booth-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .booth-text {
+    flex: 1; /* ขยายพื้นที่ของข้อมูลบูธ */
+}
+  
+  .booth-image {
+    width: 200px; /* ขนาดรูปภาพ */
+    height: 200px;
+    border-radius: 4px;
+    margin-right: 20px; 
+   
+  }
+  .no-booths-message {
+    font-size: 1.2rem;
+    color: #ff0000;
+    text-align: center;
+    padding: 20px;
+}
+.custom-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .custom-dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  

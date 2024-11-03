@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-booking',
   standalone: true,
@@ -22,7 +23,7 @@ export class BookingComponent implements OnInit {
   errorMessage = '';
   successMessage = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService,private router: Router) {}
 
   ngOnInit(): void {
     const storedBooth = localStorage.getItem('selectedBooth');
@@ -51,6 +52,7 @@ export class BookingComponent implements OnInit {
       (response) => {
         if (response.success) {
           this.successMessage = response.success;
+          this.router.navigate(['/showbooking']);
           this.errorMessage = '';
         } else {
           this.errorMessage = response.error;
@@ -72,4 +74,6 @@ export class BookingComponent implements OnInit {
       // เพิ่มโค้ดสำหรับการจองจริงผ่าน API ที่นี่
     }
   }
+
+  
 }

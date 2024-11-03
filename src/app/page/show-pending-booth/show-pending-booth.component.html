@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="header">
+      <h2>รายชื่อผู้ใช้ที่กำลังรอตรวจสอบ</h2>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+    <div *ngIf="!errorMessage && pendingUsers.length === 0" class="no-data">
+      ไม่มีข้อมูลผู้ใช้ที่กำลังรอตรวจสอบ
+    </div>
+  
+    <div *ngIf="pendingUsers.length > 0" class="pending-user-list">
+      <div *ngFor="let user of pendingUsers" class="pending-user-card">
+        <h3>{{ user.prefix }} {{ user.first_name }} {{ user.last_name }}</h3>
+        <p><strong>โทรศัพท์:</strong> {{ user.phone }}</p>
+        <p><strong>อีเมล:</strong> {{ user.email }}</p>
+        <p><strong>ชื่อบูธ:</strong> {{ user.booth_name }}</p>
+        <p><strong>ชื่อโซน:</strong> {{ user.zone_name }}</p>
+      </div>
+    </div>
+  </div>
+  

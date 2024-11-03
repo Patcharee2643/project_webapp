@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="header">
+      <h2>รายชื่อผู้ใช้</h2>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+    <div *ngIf="!errorMessage && users.length === 0" class="no-data">
+      ไม่มีข้อมูลผู้ใช้
+    </div>
+  
+    <div *ngIf="users.length > 0" class="user-list">
+      <div *ngFor="let user of users" class="user-card">
+        <h3>{{ user.prefix }} {{ user.first_name }} {{ user.last_name }}</h3>
+        <p><strong>โทรศัพท์:</strong> {{ user.phone }}</p>
+        <p><strong>อีเมล:</strong> {{ user.email }}</p>
+      </div>
+    </div>
+  </div>
+  

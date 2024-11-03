@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="login-name">
+        <img src="assets/image/location (1).png" alt="รูปภาพ" class="login-image">
+        <h2 class="center">เพิ่มข้อมูลโซน</h2>
+      </div>
+  
+    <form (ngSubmit)="onSubmit()" class="zone-form">
+      <div class="form-group">
+        <label for="zoneName">ชื่อโซน:</label>
+        <input
+          type="text"
+          id="zoneName"
+          [(ngModel)]="zone.zone_name"
+          name="zone_name"
+          class="form-control"
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="zoneDescription">รายละเอียดโซน:</label>
+        <textarea
+          id="zoneDescription"
+          [(ngModel)]="zone.zone_description"
+          name="zone_description"
+          class="form-control"
+          required
+        ></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="maxBooths">จำนวนบูธสูงสุด:</label>
+        <input
+          type="number"
+          id="maxBooths"
+          [(ngModel)]="zone.max_booths"
+          name="max_booths"
+          class="form-control"
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="eventId">รหัสงาน (Event ID):</label>
+        <input
+          type="number"
+          id="eventId"
+          [(ngModel)]="zone.event_id"
+          name="event_id"
+          class="form-control"
+          required
+        />
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" class="submit-button">บันทึก</button>
+        <button type="button" class="cancel-button" (click)="onCancel()">ยกเลิก</button>
+      </div>
+    </form>
+  
+    <p *ngIf="message" class="message">{{ message }}</p>
+  </div>
+  

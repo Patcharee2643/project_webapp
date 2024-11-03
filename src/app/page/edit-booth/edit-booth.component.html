@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="login-name">
+        <img src="assets/image/booth1.png" alt="รูปภาพ" class="login-image">
+        <h2 class="center">แก้ไขข้อมูลบูธ</h2>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="booth-form">
+      <div class="form-group">
+        <label for="boothId">รหัสบูธ:</label>
+        <input
+          type="number"
+          id="boothId"
+          [(ngModel)]="booth.booth_id"
+          name="booth_id"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="zoneId">รหัสโซน:</label>
+        <input
+          type="number"
+          id="zoneId"
+          [(ngModel)]="booth.zone_id"
+          name="zone_id"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="boothName">ชื่อบูธ:</label>
+        <input
+          type="text"
+          id="boothName"
+          [(ngModel)]="booth.booth_name"
+          name="booth_name"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="boothSize">ขนาดบูธ:</label>
+        <input
+          type="text"
+          id="boothSize"
+          [(ngModel)]="booth.booth_size"
+          name="booth_size"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="productsSale">ผลิตภัณฑ์ที่จำหน่าย:</label>
+        <input
+          type="text"
+          id="productsSale"
+          [(ngModel)]="booth.products_sale"
+          name="products_sale"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="submit-button">บันทึก</button>
+        <button type="button" class="cancel-button" (click)="onCancel()">ยกเลิก</button>
+      </div>
+    </form>
+
+    <p *ngIf="message" class="success-message">{{ message }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+</div>

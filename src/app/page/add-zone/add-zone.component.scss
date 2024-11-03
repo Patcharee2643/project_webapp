@@ -1,0 +1,69 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+  }
+  
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .submit-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .cancel-button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .message {
+    margin-top: 20px;
+    text-align: center;
+    color: #4caf50;
+  }
+  .login-image {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px; /* เพิ่มระยะห่างระหว่างรูปภาพกับข้อความ */
+  }
+  .login-name {
+    display: flex;
+    align-items: center; /* จัดให้รูปภาพและข้อความอยู่ตรงกลางในแนวตั้ง */
+    justify-content: center;
+  }

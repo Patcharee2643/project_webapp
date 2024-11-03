@@ -1,0 +1,38 @@
+<div class="edit-event-container">
+    <div class="login-name">
+        <img src="assets/image/event (1).png" alt="รูปภาพ" class="login-image">
+        <h2 class="center">แก้ไขข้อมูลการจัดงาน</h2>
+      </div>
+  
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="event_id">รหัสงาน:</label>
+        <input type="text" id="event_id" [(ngModel)]="event.event_id" name="event_id" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="event_name">ชื่องาน:</label>
+        <input type="text" id="event_name" [(ngModel)]="event.event_name" name="event_name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="event_start_date">วันที่เริ่ม:</label>
+        <input type="date" id="event_start_date" [(ngModel)]="event.event_start_date" name="event_start_date" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="event_end_date">วันที่สิ้นสุด:</label>
+        <input type="date" id="event_end_date" [(ngModel)]="event.event_end_date" name="event_end_date" required />
+      </div>
+  
+      <div class="button-group">
+        <button type="submit" class="submit-button">บันทึกการเปลี่ยนแปลง</button>
+        <button type="button" class="cancel-button" (click)="onCancel()">ยกเลิก</button>
+      </div>
+  
+      <div *ngIf="message" class="message">
+        {{ message }}
+      </div>
+    </form>
+  </div>
+  

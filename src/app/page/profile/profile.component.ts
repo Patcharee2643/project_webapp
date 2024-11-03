@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: any;
+  user: any = {};
   editableUser: any = {};
   newPassword: string = '';
   confirmPassword: string = '';
@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
+    
     const userData = localStorage.getItem('user');
     this.user = userData ? JSON.parse(userData) : null;
     this.editableUser = { ...this.user };
@@ -86,4 +87,10 @@ export class ProfileComponent implements OnInit {
   isEditableField(field: string): boolean {
     return ['prefix', 'first_name', 'last_name', 'phone', 'email'].includes(field);
   }
+
+  filteredObjectKeys(obj: any): string[] {
+    return Object.keys(obj).filter(key => key !== 'passwordreal');
+  }
+  
+  
 }

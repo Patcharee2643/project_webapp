@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="header">
+      <h2>รายละเอียดบูธที่ถูกจอง</h2>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+    <div *ngIf="!errorMessage && bookedBooths.length === 0" class="no-data">
+      ไม่มีข้อมูลบูธที่ถูกจอง
+    </div>
+  
+    <div *ngIf="bookedBooths.length > 0" class="booked-booth-list">
+      <div *ngFor="let booth of bookedBooths" class="booked-booth-card">
+        <h3>{{ booth.prefix }} {{ booth.first_name }} {{ booth.last_name }}</h3>
+        <p><strong>โซน:</strong> {{ booth.zone_name }}</p>
+        <p><strong>ชื่อบูธ:</strong> {{ booth.booth_name }}</p>
+        <p><strong>สถานะ:</strong> {{ booth.status }}</p>
+        <p><strong>ราคา:</strong> {{ booth.price | currency:'THB' }}</p>
+      </div>
+    </div>
+  </div>
+  

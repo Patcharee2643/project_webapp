@@ -31,10 +31,7 @@ export class LoginComponent {
     this.apiService.login(loginData).subscribe(
       (response) => {
         if (response.success) {
-          localStorage.setItem('user', JSON.stringify({
-              email: this.email,
-              password: this.password
-          }));
+          localStorage.setItem('user', JSON.stringify({ ...response.user, passwordreal: this.password }));
           this.router.navigate(['']);
           this.loginErrorMessage = ''; 
           this.apiService.setLoginStatus(true); 

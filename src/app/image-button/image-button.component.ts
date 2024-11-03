@@ -11,6 +11,8 @@ import { ApiService } from '../api.service';
   styleUrl: './image-button.component.css'
 })
 export class ImageButtonComponent implements OnInit {
+  isDropdownVisible = false;
+  AdminLoggedIn = false;
   isLoggedIn = false;
   username: string | null = null;
   constructor(private router: Router, private apiService: ApiService) {}
@@ -41,6 +43,7 @@ export class ImageButtonComponent implements OnInit {
   }
 
   logout() {
+    this.AdminLoggedIn = false;
     this.apiService.logout();
     this.router.navigate(['']); // กลับไปหน้า login
   }
@@ -52,5 +55,46 @@ export class ImageButtonComponent implements OnInit {
   toBooking() {
     
     this.router.navigate(['/showbooking']); // กลับไปหน้า login
+  }
+  toEvent() {
+    
+    this.router.navigate(['/event']); // กลับไปหน้า login
+    this.AdminLoggedIn = true;
+  }
+
+  toAdmin() {
+    
+    this.router.navigate(['/admin']); // กลับไปหน้า login
+    this.AdminLoggedIn = true;
+  }
+  toAddEvent() {
+    // ฟังก์ชันนี้จะนำทางไปยังหน้าการเพิ่มข้อมูล
+    // เช่น this.router.navigate(['/event/add']);
+  }
+
+  toEditEvent() {
+    // ฟังก์ชันนี้จะนำทางไปยังหน้าการแก้ไขข้อมูล
+    // เช่น this.router.navigate(['/event/edit']);
+  }
+
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+
+  toZone() {
+    
+    this.router.navigate(['/zone']); // กลับไปหน้า login
+    
+  }
+  toBooth() {
+    
+    this.router.navigate(['/booth']); // กลับไปหน้า login
+    
+  }
+  toUser() {
+    
+    this.router.navigate(['/user']); // กลับไปหน้า login
+    
   }
 }

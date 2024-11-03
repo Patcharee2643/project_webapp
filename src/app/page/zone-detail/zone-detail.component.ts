@@ -60,10 +60,45 @@ export class ZoneDetailComponent implements OnInit {
     return !!localStorage.getItem('user'); 
   }
 
+  bookBooth2(booth_id: number, booth_name: string) {
+    if (!this.isLoggedIn()) {
+      this.showLoginDialog = true;
+      return;
+    }
+  
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userData = {
+      email: user.email,
+      password: user.password
+    };
+  
+    // เรียกฟังก์ชันตรวจสอบจำนวนบูธที่ผู้ใช้จอง
+    this.checkUserMaxBooking(userData, booth_id, booth_name);
+  }
+
+
+  checkUserMaxBooking(userData: any, booth_id: number, booth_name: string) {
+    this.apiService.checkMaxBooking(userData).subscribe({
+      next: (response: any) => {
+        if (response.error === 'User has reached the maximum number of booth bookings (4)') {
+          this.bookedBooths = response.bookings || [];
+          this.showMaxNotDialog = true;
+        } else {
+          // ถ้าจองได้ ให้เรียกฟังก์ชันการจอง
+          this.bookBooth( booth_id, booth_name);
+        }
+      },
+      error: (error) => {
+        console.error('Error checking max booking:', error);
+        alert('เกิดข้อผิดพลาดในการตรวจสอบการจอง');
+      }
+    });
+  }
+  
+
   bookBooth(booth_id: number, booth_name: string) {
     if (!this.isLoggedIn()) {
       this.showLoginDialog = true;
-
       return;
     }
   
@@ -75,27 +110,21 @@ export class ZoneDetailComponent implements OnInit {
       booth_name,
     };
   
+    // เรียก API ตรวจสอบการจองบูธสูงสุด
     this.apiService.checkBoothAvailability(userData).subscribe({
       next: (response: any) => {
         try {
           const parsedResponse = typeof response === 'string' ? JSON.parse(response) : response;
-          console.log("Parsed API response:", parsedResponse);
-  
+          
+          // ตรวจสอบว่าผู้ใช้จองครบ 4 บูธแล้วหรือไม่
           if (parsedResponse.error === 'User has reached the maximum number of booth bookings (4)') {
             this.bookedBooths = parsedResponse.bookings || [];
-            this.showMaxNotDialog = true;
-            
+            this.showMaxNotDialog = true; // เปิดหน้าต่างแจ้งเตือนพร้อมแสดงข้อมูลการจองบูธ
           } else if (parsedResponse.status_booth === 'available' && parsedResponse.message === 'User can book this booth') {
             this.selectedBooth = { booth_id, booth_name };
-            this.showConfirmDialog = true;
-            console.log("แสดงการยืนยันการจอง showConfirmDialog:", this.showConfirmDialog);
-          } 
-          else if(parsedResponse.status_booth === 'available'){
-            this.showMaxNotDialog = true;
+            this.showConfirmDialog = true; // แสดงหน้าต่างยืนยันการจอง
           } else {
             alert(parsedResponse.message || 'บูธนี้ไม่พร้อมให้จอง');
-            console.log("status_booth:", parsedResponse.status_booth);
-            console.log("message:", parsedResponse.message);
           }
         } catch (e) {
           console.error('Error parsing JSON response:', e);
@@ -103,12 +132,9 @@ export class ZoneDetailComponent implements OnInit {
         }
       },
       error: (error: HttpErrorResponse) => {
-        if (
-          error.status === 409 && 
-          error.error?.error === 'User has reached the maximum number of booth bookings (4)'
-        ) {
+        if (error.status === 409 && error.error?.error === 'User has reached the maximum number of booth bookings (4)') {
           this.bookedBooths = error.error.bookings || [];
-          this.showMaxNotDialog = true;
+          this.showMaxNotDialog = true; // แสดงข้อมูลบูธที่จองแล้ว
         } else {
           this.showNotDialog = true;
           console.log(error.status);

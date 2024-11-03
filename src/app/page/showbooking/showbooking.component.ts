@@ -25,49 +25,67 @@ export class ShowbookingComponent implements OnInit {
   }
   fetchBookings() {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    
-    // ตรวจสอบว่ามีข้อมูลอีเมลและรหัสผ่านใน `user` หรือไม่
+    console.log('User data from localStorage:', user);
+  
     if (!user.email || !user.password) {
-        this.errorMessage = 'กรุณาเข้าสู่ระบบเพื่อดูข้อมูลการจอง';
-        return;
+      this.errorMessage = 'กรุณาเข้าสู่ระบบเพื่อดูข้อมูลการจอง';
+      return;
     }
-
-    // เรียกใช้ API เพื่อดึงข้อมูลการจอง
-    this.apiService.getUserBookings(user.email, user.password).subscribe({
+  
+    this.apiService.getUserBookings(user.email, user.passwordreal).subscribe({
       next: (response: any) => {
+        console.log('Response bookings:', response.bookings);
         this.bookings = response.bookings || [];
-        this.errorMessage = ''; // ล้างข้อความผิดพลาด
+        this.errorMessage = ''; // เคลียร์ข้อความผิดพลาดหากดึงข้อมูลสำเร็จ
       },
       error: (error) => {
         if (error.status === 401) {
           this.errorMessage = 'รหัสผ่านไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่อีกครั้ง';
-          localStorage.removeItem('user'); // ลบข้อมูลผู้ใช้หากรหัสผ่านไม่ถูกต้อง
         } else {
           this.errorMessage = 'เกิดข้อผิดพลาดในการดึงข้อมูลการจอง';
         }
         console.error(error);
       }
     });
-}
+  }
+  
+  
 
 
-  cancelBooking(boothId: number) {
-    this.apiService.cancelBooking(boothId).subscribe({
-      next: () => {
-        alert('การจองของคุณถูกยกเลิกเรียบร้อยแล้ว');
-        this.fetchBookings();
+  cancelBooking(bookingId: number, boothId: number) {
+    if (boothId === undefined || boothId === null) {
+      console.error('booth_id is undefined or null'); 
+      this.errorMessage = 'ไม่พบข้อมูลบูธ กรุณาลองใหม่อีกครั้ง';
+      return;
+    }
+  
+    const payload = { booking_id: bookingId, booth_id: boothId };
+    console.log('Payload for cancellation:', payload);
+  
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    this.http.post<any>('https://wag16.bowlab.net/users/cancelled_book_booth', payload, { headers }).subscribe({
+      next: (response) => {
+        if (response.success) {
+          alert('การจองถูกยกเลิกเรียบร้อยแล้ว');
+          this.fetchBookings();
+        }
       },
       error: (error) => {
-        console.error('Error cancelling booking:', error);
-        alert('ไม่สามารถยกเลิกการจองได้');
+        this.errorMessage = error.error?.message || 'เกิดข้อผิดพลาดในการยกเลิกการจอง';
+        console.error('Error in cancellation:', error);
       }
     });
   }
+  
+  
+  
 
   showPaymentModal(bookingId: number) {
     this.isPaymentModalVisible = true;
-    this.selectedBookingId = bookingId;
+    this.selectedBookingId = bookingId; // กำหนด bookingId ให้กับ selectedBookingId
   }
+  
 
   hidePaymentModal() {
     this.isPaymentModalVisible = false;
@@ -80,15 +98,16 @@ export class ShowbookingComponent implements OnInit {
       this.errorMessage = 'กรุณาวางลิงก์สลิปการชำระเงิน';
       return;
     }
-
+  
     const payload = {
       booking_id: this.selectedBookingId,
       payment_slip: this.paymentSlipLink
     };
-
+  
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    this.http.post<any>(`/users/payment`, payload, { headers }).subscribe({
+  
+    // เปลี่ยน URL ให้ชี้ไปที่เซิร์ฟเวอร์จริง
+    this.http.post<any>(`https://wag16.bowlab.net/users/payment`, payload, { headers }).subscribe({
       next: (response) => {
         if (response.success) {
           alert(response.message || 'ชำระเงินสำเร็จ');
@@ -98,9 +117,12 @@ export class ShowbookingComponent implements OnInit {
       error: (error) => {
         this.errorMessage = error.error?.message || 'เกิดข้อผิดพลาดในการชำระเงิน';
         console.error(error);
+        alert('ไม่สามารถชำระเงินได้');
       }
     });
-
+  
     this.hidePaymentModal();
   }
+  
+  
 }

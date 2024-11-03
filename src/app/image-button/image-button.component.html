@@ -1,5 +1,5 @@
 <nav class="navbar">
-  <button class="image-button" (click)="onButtonClick()">
+  <button class="image-button" (click)="toAdmin()">
     <img src="assets/image/logo.jpg" class="image" alt="ปุ่มรูปภาพ" />
     <h1>ระบบจองบูธงานเกษตรแฟร์</h1>
   </button>
@@ -10,6 +10,36 @@
         <h3>หน้าหลัก</h3>
       </button>
     </li>
+
+    <li *ngIf="AdminLoggedIn" class="dropdown">
+      <button (click)="toEvent()" class="nav-link">
+        <img src="assets/image/event.png" alt="รูปภาพ" />
+        <h3>ข้อมูลการจัดงาน</h3>
+      </button>
+    </li>
+
+    <li *ngIf="AdminLoggedIn" class="dropdown">
+      <button (click)="toZone()" class="nav-link">
+        <img src="assets/image/location.png" alt="รูปภาพ" />
+        <h3>ข้อมูลโซน</h3>
+      </button>
+    </li>
+    <li *ngIf="AdminLoggedIn" class="dropdown">
+      <button (click)="toBooth()" class="nav-link">
+        <img src="assets/image/booth.png" alt="รูปภาพ" />
+        <h3>ข้อมูลบูธ</h3>
+      </button>
+    </li>
+    <li *ngIf="AdminLoggedIn" class="dropdown">
+      <button (click)="toUser()" class="nav-link">
+        <img src="assets/image/user.png" alt="รูปภาพ" />
+        <h3>เกี่ยวกับผู้ใช้</h3>
+      </button>
+    </li>
+    
+    
+
+
     <li *ngIf="isLoggedIn">
       <button (click)="toBooking()" class="nav-link">
         <img src="assets/image/booking.png" alt="รูปภาพ" />

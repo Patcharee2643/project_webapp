@@ -1,0 +1,26 @@
+<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+<div class="event-container">
+    
+    <div class="login-name">
+        <img src="assets/image/event (1).png" alt="รูปภาพ" class="login-image">
+        <h2 class="center">เพิ่มข้อมูลการจัดงาน</h2>
+      </div>
+    <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="event-form">
+      <div class="form-group">
+        <label for="event_name">ชื่ออีเวนต์:</label>
+        <input type="text" id="event_name" name="event_name" [(ngModel)]="eventData.event_name" required />
+      </div>
+      <div class="form-group">
+        <label for="event_start_date">วันที่เริ่มอีเวนต์:</label>
+        <input type="date" id="event_start_date" name="event_start_date" [(ngModel)]="eventData.event_start_date" required />
+      </div>
+      <div class="form-group">
+        <label for="event_end_date">วันที่สิ้นสุดอีเวนต์:</label>
+        <input type="date" id="event_end_date" name="event_end_date" [(ngModel)]="eventData.event_end_date" required />
+      </div>
+      <button type="submit" class="submit-button">เพิ่มอีเวนต์</button>
+    </form>
+   
+  </div>
+  
